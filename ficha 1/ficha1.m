@@ -13,3 +13,14 @@ end
 
 str=sprintf('There are %d messages', counter);
 disp(str)
+
+frewind(file);
+
+for j=1:counter
+    message = fgetl(file);
+    if message(2:6)=='GPGGA'
+        disp(message)
+    else continue
+    end
+end
+    
