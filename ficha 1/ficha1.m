@@ -16,11 +16,46 @@ disp(str)
 
 frewind(file);
 
+data=[];
+
 for j=1:counter
     message = fgetl(file);
-    if message(2:6)=='GPGGA'
-        disp(message)
+    if strcmp(message(2:6),'GPGGA')==1
+        data=[data;zeros(1,3)];
+        message=message(8:end);
+        [input,message]=strtok(message,',');
+        input=str2num(input);
+        data(end,1)=input;
+        message=message(2:end);
+        [input,message]=strtok(message,',');
+        
+        degrees=str2num(input(1:2));
+        minutes=str2num(input(3:end));
+        
+        input=degrees+minutes/60;
+        if message(2)=='N', data(end,2)=input;
+        else data(end,2)=-input;
+        end
+        
+        message=message(4:end);
+        
+        [input,message]=strtok(message,',');
+        
+        degrees=str2num(input(1:3));
+        minutes=str2num(input(4:end));
+        
+        input=degrees+minutes/60;
+        if message(2)=='E', data(end,3)=input;
+        else data(end,3)=-input;
+        end
+   
     else continue
     end
 end
-    
+
+minlat=min(data(:,2));
+maxlat=max(data(:,2));
+minlon=min(data(:,3));
+maxlon=max(data(:,3));
+
+plot(data(:,3),data(:,2));
