@@ -68,13 +68,13 @@ for j=1:counter
         [input,message]=strtok(message,',');
         data(end,8)=str2num(input);
     else continue
-    end
 end
 
 minlat=min(data(:,2));
 maxlat=max(data(:,2));
 minlon=min(data(:,3));
 maxlon=max(data(:,3));
+minalt=min(data(:,7));
 maxalt=max(data(:,7));
 
 ce=0;
@@ -85,4 +85,3 @@ for i=2:counter
         ce=ce+dh;
     end
 end
-
