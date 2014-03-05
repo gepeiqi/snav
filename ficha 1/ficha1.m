@@ -17,6 +17,8 @@ disp(str)
 frewind(file);
 
 data=[];
+v=[];
+nsv=[];
 
 for j=1:counter
     message = fgetl(file);
@@ -67,7 +69,26 @@ for j=1:counter
         message=message(4:end);
         [input,message]=strtok(message,',');
         data(end,8)=str2num(input);
+    elseif strcmp(message(2:6),'GPVTG')==1
+        message=message(8:end);
+        for i=1:5
+            [input,message]=strtok(message,',');
+        end
+        message=message(2:end);
+        [vk,~]=strtok(message,',');
+        vk=str2num(vk);
+        v(size(v)+1)=vk;
+    elseif strcmp(message(2:6),'GPGSV')==1
+        message=message(8:end);
+        for i=1:2
+            [input,message]=strtok(message,',');
+        end
+        message=message(2:end);
+        [nsvk,~]=strtok(message,',');
+        nsvk=str2num(nsvk);
+        nsv(size(nsv)+1)=nsvk;
     else continue
+    end
 end
 
 minlat=min(data(:,2));
@@ -77,10 +98,13 @@ maxlon=max(data(:,3));
 minalt=min(data(:,7));
 maxalt=max(data(:,7));
 
+maxv=max(v);
+maxnsv=max(nsv);
+
 ce=0;
 
-for i=2:counter
-    dh=data(i,7)-data(i-1,7)
+for i=2:size(data,1)
+    dh=data(i,7)-data(i-1,7);
     if dh>0
         ce=ce+dh;
     end
