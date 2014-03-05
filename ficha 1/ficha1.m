@@ -19,6 +19,7 @@ frewind(file);
 data=[];
 v=[];
 nsv=[];
+elev=[];
 
 for j=1:counter
     message = fgetl(file);
@@ -84,9 +85,25 @@ for j=1:counter
             [input,message]=strtok(message,',');
         end
         message=message(2:end);
-        [nsvk,~]=strtok(message,',');
+        [nsvk,message]=strtok(message,',');
         nsvk=str2num(nsvk);
         nsv(size(nsv)+1)=nsvk;
+        while size(message,2)>10
+            message=message(2:end);
+            elev=[elev;zeros(1,2)];
+            [is,message]=strtok(message,',');
+            message=message(2:end);
+            [angle,message]=strtok(message,',');
+            elev(end,1)=str2num(is);
+            elev(end,2)=str2num(angle);
+            [~,message]=strtok(message,',');
+            if (size(message,2)~=0) && (message(2)==',')
+                message=message(3:end);
+                continue
+            elseif size(message,2)~=0
+                [~,message]=strtok(message,',');
+            end
+        end
     else continue
     end
 end
@@ -107,5 +124,12 @@ for i=2:size(data,1)
     dh=data(i,7)-data(i-1,7);
     if dh>0
         ce=ce+dh;
+    end
+end
+
+maxelev=zeros(1,2)
+for i=1:size(elev,1)
+    if elev(i,2)>maxelev(2)
+        maxelev=elev(i,:);
     end
 end
