@@ -23,6 +23,22 @@ elev=[];
 
 for j=1:counter
     message = fgetl(file);
+    chkmsg=message(2:size(message,2)-3);
+    chksum=message(size(message,2)-1:size(message,2));
+    chkmsg=uint8(chkmsg);
+    chk=0;
+    for i=1:size(chkmsg,2)
+        chk=bitxor(chk,chkmsg(i));
+    end
+    chksum=hex2dec(chksum);
+    
+    if chksum==chk
+        display('checksums match')
+    else
+        display('checksums dont match')
+        continue
+    end
+    
     if strcmp(message(2:6),'GPGGA')==1
         data=[data;zeros(1,8)];
         message=message(8:end);
@@ -127,7 +143,7 @@ for i=2:size(data,1)
     end
 end
 
-maxelev=zeros(1,2)
+maxelev=zeros(1,2);
 for i=1:size(elev,1)
     if elev(i,2)>maxelev(2)
         maxelev=elev(i,:);
