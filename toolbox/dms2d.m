@@ -9,17 +9,18 @@ if nargin==2    % Set the default value for seconds
 end
 
 minutes=s/60;       % Usual conversions
-minutes=minutes+m;
+
+if m<0
+    minutes=m-minutes;
+else
+    minutes=minutes+m;
+end
 degrees=minutes/60;
 
 if d<0  % Signal of the output based on input.
     degrees=d-degrees;
-elseif d>0
+elseif d>=0
     degrees=d+degrees;
-elseif d==0
-    if m<0
-        degrees=-degrees;
-    end
 end
 end
 
