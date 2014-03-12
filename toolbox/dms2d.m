@@ -13,9 +13,9 @@ minutes=minutes+m;
 degrees=minutes/60;
 
 if d<0  % Signal of the output based on input.
-    degrees=degrees-d;
+    degrees=d-degrees;
 elseif d>0
-    degrees=degrees+d;
+    degrees=d+degrees;
 elseif d==0
     if m<0
         degrees=-degrees;
