@@ -6,8 +6,8 @@ function [X, Y, Z] = llh2xyz(lat,lon,h)
 %   and altitude (in meters) and the output is given in meters, using the
 %   usual layout of X, Y and Z. The ellipsoid used is WGS-84.
 
-a=6378136;          % Semimajor axis of the ellipsoid
-f=1/298.257839303;  % Ellipsoidal flattening
+a=6378137;          % Semimajor axis of the ellipsoid
+f=1/298.257223563;  % Ellipsoidal flattening
 
 lat=lat*pi/180; % Convert the angular arguments from degrees to radians
 lon=lon*pi/180;

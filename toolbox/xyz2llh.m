@@ -4,8 +4,8 @@ function [lat,lon,h] = xyz2llh(X,Y,Z)
 %   altitude (in meters) of a point of coordinates X,Y,Z (in meters), given
 %   as input. Datum used is WGS-84.
 
-a=6378136;          % Semimajor axis of the ellipsoid
-f=1/298.257839303;  % Ellipsoidal flattening
+a=6378137;          % Semimajor axis of the ellipsoid
+f=1/298.257223563;  % Ellipsoidal flattening
 b=a*(1-f);          % Semiminor axis of the ellipsoid
 
 r=sqrt(X^2+Y^2);
@@ -20,4 +20,3 @@ R=a/sqrt(1-f*(2-f)*sind(lat)^2);
 
 h=r/cosd(lat)-R;
 end
-
