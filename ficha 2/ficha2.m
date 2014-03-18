@@ -7,22 +7,17 @@ h1=103;
 
 disp('p1:');
 
-s=sprintf('Latitude: %d deg %f min',lat,mlat);
-disp(s)
-s=sprintf('Longitude: %d deg %f min',lon,mlon);
-disp(s)
+fprintf('Latitude: %d deg %f min\n',lat,mlat);
+fprintf('Longitude: %d deg %f min\n',lon,mlon);
 
 lat1=dms2d(p1lat(1),p1lat(2),p1lat(3));
 lon1=dms2d(p1lon(1),p1lon(2),p1lon(3));
 
-s=sprintf('Latitude: %f º',lat1);
-disp(s)
-s=sprintf('Longitude: %f º',lon1);
-disp(s)
+fprintf('Latitude: %f º\n',lat1);
+fprintf('Longitude: %f º\n',lon1);
 
 [X1 Y1 Z1]=llh2xyz(lat1, lon1, h1);
-s=sprintf('\n\nX=%f\nY=%f\nZ=%f\n',X1,Y1,Z1);
-disp(s)
+fprintf('\n\nX=%f\nY=%f\nZ=%f\n',X1,Y1,Z1);
 
 X2=4910384.3;
 Y2=-821478.6;
@@ -30,33 +25,39 @@ Z2=3973549.6;
 
 [lat2,lon2,h2]=xyz2llh(X2,Y2,Z2);
 
-disp('p2:');
-s=sprintf('Latitude: %f º',lat2);
-disp(s)
-s=sprintf('Longitude: %f º',lon2);
-disp(s)
-s=sprintf('Altitude: %f m\n',h2);
-disp(s)
+fprintf('Latitude: %f º\n',lat2);
+fprintf('Longitude: %f º\n',lon2);
+fprintf('Altitude: %f m\n',h2);
 
 [lat2d,lat2m]=d2dm(lat2);
 [lon2d,lon2m]=d2dm(lon2);
 
-s=sprintf('Latitude: %d º %f min',lat2d,lat2m);
-disp(s)
-s=sprintf('Longitude: %d º %f min',lon2d, lon2m);
-disp(s)
-s=sprintf('Altitude: %f m\n',h2);
-disp(s)
+fprintf('Latitude: %d º %f min\n',lat2d,lat2m);
+fprintf('Longitude: %d º %f min\n',lon2d, lon2m);
+fprintf('Altitude: %f m\n',h2);
 
 [lat2d,lat2m,lat2s]=d2dms(lat2);
 [lon2d,lon2m,lon2s]=d2dms(lon2);
 
-s=sprintf('Latitude: %d º %d min %f seg',lat2d,lat2m,lat2s);
-disp(s)
-s=sprintf('Longitude: %d º %d min %f seg',lon2d, lon2m,lon2s);
-disp(s)
-s=sprintf('Altitude: %f m\n',h2);
-disp(s)
+fprintf('Latitude: %d º %d min %f seg\n',lat2d,lat2m,lat2s);
+fprintf('Longitude: %d º %d min %f seg\n',lon2d, lon2m,lon2s);
+fprintf('Altitude: %f m\n',h2);
 dist=sqrt((X2-X1)^2+(Y2-Y1)^2+(Z2-Z1)^2);
-s=sprintf('Distancia entre os dois pontos: %f',dist);
-disp(s)
+fprintf('Distancia entre os dois pontos: %f\n\n\n',dist);
+
+
+a1=6378137;
+b1=6356752.3;
+e1=sqrt(1-(b1^2)/(a1^2));
+delta_a=251;
+delta_f=0.14192702*10^-4;
+delta_x=84;
+delta_y=107;
+delta_z=120;
+
+
+fprintf('Molodensky ponto 1:\n')
+molodensky(lat1, lon1, h1, a1, b1, e1, delta_a, delta_f, delta_x, delta_y, delta_z);
+
+fprintf('Molodensky ponto 2:\n')
+molodensky(lat2, lon2, h2, a1, b1, e1, delta_a, delta_f, delta_x, delta_y, delta_z);
