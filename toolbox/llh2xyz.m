@@ -1,13 +1,14 @@
-function [X, Y, Z] = llh2xyz(lat,lon,h)
+function [X, Y, Z] = llh2xyz(lat,lon,h,a,f)
 %LLH2XYZ ECEF coordinates from geodetic coordinates
 %   This function retrieves the ECEF coordinates from the geodetic
 %   coordinates. Input arguments are the latitude and longitude of the
 %   point to be calculated (in degrees with any number of decimal places)
 %   and altitude (in meters) and the output is given in meters, using the
-%   usual layout of X, Y and Z. The ellipsoid used is WGS-84.
-
-a=6378137;          % Semimajor axis of the ellipsoid
-f=1/298.257223563;  % Ellipsoidal flattening
+%   usual layout of X, Y and Z. The default ellipsoid used is WGS-84.
+if nargin==3
+    a=6378137;          % Semimajor axis of the ellipsoid
+    f=1/298.257223563;  % Ellipsoidal flattening
+end
 
 lat=lat*pi/180; % Convert the angular arguments from degrees to radians
 lon=lon*pi/180;
