@@ -56,8 +56,33 @@ delta_y=107;
 delta_z=120;
 
 
-fprintf('Molodensky ponto 1:\n')
-molodensky(lat1, lon1, h1, a1, b1, e1, delta_a, delta_f, delta_x, delta_y, delta_z);
-
-fprintf('Molodensky ponto 2:\n')
+fprintf('Molodensky ponto 1:\n');
+[latmol,lonmol,altmol]=molodensky(lat1, lon1, h1, a1, b1, e1, delta_a, delta_f, delta_x, delta_y, delta_z);
+[XMol1,YMol1,ZMol1]=llh2xyz(latmol,lonmol,altmol,6378388,1/297);
+XMol2=X1+delta_x;
+YMol2=Y1+delta_y;
+ZMol2=Z1+delta_z;
+MolDist=sqrt((XMol2-XMol1)^2+(YMol2-YMol1)^2+(ZMol2-ZMol1)^2);
+fprintf('Molodensky ponto 1, erro:\n%fm\n\n',MolDist);
+fprintf('Molodensky ponto 2:\n');
 molodensky(lat2, lon2, h2, a1, b1, e1, delta_a, delta_f, delta_x, delta_y, delta_z);
+
+fprintf('ENU:\n');
+[E,N,U] = ecef2enu(X1,Y1,Z1,lat1,lon1,X2,Y2,Z2);
+azimuth=atan2(E,N)*180/pi;
+elevation=atan(U/sqrt(N^2+E^2))*180/pi;
+fprintf('Azimuth:%f\nElevation:%f\n\n',azimuth,elevation);
+
+disp('Orthodromes and Loxodromes:');
+NyLat=dms2d(40,45);
+NyLon=dms2d(-73,58);
+LondonLat=dms2d(51,32);
+LondonLon=dms2d(0,-10);
+
+[~,~,~,DOrtho]=orthodrome(NyLat,NyLon,LondonLat,LondonLon);
+
+[~,DLoxo]=loxodrome(NyLat,NyLon,LondonLat,LondonLon);
+
+DeltaDist=abs(DLoxo-DOrtho);
+
+fprintf('Distance Difference:%fm\n',DeltaDist)
