@@ -25,6 +25,6 @@ lon1=lon1*180/pi;
 lat2=lat1+delta_lat;
 lon2=lon1+delta_lon;
 alt2=alt1+delta_alt;
-
-fprintf('lat=%f\nlon=%f\nalt=%f',lat2,lon2,alt2);
+fprintf('delta_lat:%f"\ndelta_lon:%f"\ndelta_alt:%fm\n',delta_lat*3600,delta_lon*3600,delta_alt);
+fprintf('lat=%f\nlon=%f\nalt=%f\n\n',lat2,lon2,alt2);
 end
