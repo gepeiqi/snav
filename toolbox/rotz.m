@@ -5,7 +5,7 @@ function [X2,Y2,Z2] = rotz(X1,Y1,Z1,gamma)
 gamma=gamma*pi/180;
 
 X2=X1*cos(gamma)+Y1*sin(gamma);
-Y2=-X1*sin(gamma)+Y1*cos();
+Y2=-X1*sin(gamma)+Y1*cos(gamma);
 Z2=Z1;
 
 end
