@@ -3,17 +3,17 @@ function [d,m,s] = d2dms(degrees)
 %   Detailed explanation goes here
 
 d=fix(degrees);
+minutes=60*(degrees-d);
+m=fix(minutes);
+s=60*(minutes-m);
 
-
-if d>=0
-    m=fix(60*rem(degrees,1));
-elseif d<0
-    m=fix(abs(60*rem(degrees,1)));
+if d<0
+    m=abs(m);
+    s=abs(s);
+elseif d==0
+    if m<0
+        s=abs(s);
+    end
+end
 end
 
-if m>=0
-    s=60*rem(60*rem(degrees,1),1);
-elseif m<0
-    s=abs(60*rem(60*rem(degrees,1),1));     % FIX THIS
-end
-end
