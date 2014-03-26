@@ -5,10 +5,9 @@ function [status,data] = parsenmea(s)
 %   checksum does not match the message. Consequent returns are the 
 
 status=s(2:6);
-
+data=[];
 switch status
     case 'GPGGA'
-        disp('esta é uma mensagem gga')
         data=zeros(10,1);
         message=s(8:end);
         [input,message]=strtok(message,',');
@@ -51,9 +50,9 @@ switch status
         [input,message]=strtok(message,',');
         data(10)=str2double(input);
     case 'GPGSV'
-        disp('esta é uma mensagem gsv')
+        % GPGSV placeholder
     case 'GPRMC'
-        disp('esta é uma mensagem rmc')
+        % GPRMC placeholder
 end
 
 chkmsg=s(2:size(s,2)-3);
@@ -66,8 +65,8 @@ end
 chksum=hex2dec(chksum);
     
 if chksum==chk
-    display('checksum is OK')
+    % Checksum is okay
 else
     display('checksum is not OK')
-    data='fail';
+    status='fail';
 end

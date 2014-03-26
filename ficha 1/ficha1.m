@@ -32,12 +32,12 @@ for j=1:counter
     end
     chksum=hex2dec(chksum);
     
-    if chksum==chk
-        display('checksums match')
-    else
-        display('checksums dont match')
-        continue
-    end
+%     if chksum==chk
+%         display('checksums match')
+%     else
+%         display('checksums dont match')
+%         continue
+%     end
     
     if strcmp(message(2:6),'GPGGA')==1
         data=[data;zeros(1,8)];
