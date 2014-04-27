@@ -5,6 +5,7 @@ function [X,Y,Z] = satpos(data,t,WN)
 miu=3.986005*10^14;
 OmegaDot_e=7.2921151467*10^-5;
 
+WNa=data(4);
 toe=data(7);
 sqrtA=data(34);
 deltaN=data(37);
@@ -26,8 +27,12 @@ A=sqrtA^2;
 
 N=sqrt(miu/(A^3))+deltaN;
 
-deltat=t-toe;
-%FIX THE ROLLOVER
+while WN>1023
+    WN=WN-1024;
+end
+    
+deltat=t-toe-604800*(WN-WNa);
+
 
 M=M0+N*deltat;
 
