@@ -31,7 +31,13 @@ while WN>1023
     WN=WN-1024;
 end
     
-deltat=t-toe-604800*(WN-WNa);
+deltat=t-toe;
+
+if deltat>302400
+    deltat=deltat-604800;
+elseif deltat<-302400
+    deltat=deltat+604800;
+end
 
 
 M=M0+N*deltat;
