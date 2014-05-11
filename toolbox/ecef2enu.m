@@ -10,7 +10,5 @@ dz=Z2-Z1;
 [E,N,U]=rotz(dx,dy,dz,lon1+90);
 [E,N,U]=rotx(E,N,U,90-lat1);
 
-fprintf('E:%f\nN:%f\nU:%f\n',E,N,U);
-
 end
 
