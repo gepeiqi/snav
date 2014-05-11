@@ -12,6 +12,9 @@ fprintf(file,'\n\t\t<Point>');
 
 if strcmp(style,'satellite')
     fprintf(file,'\n\t\t\t<extrude>1</extrude>');
+end
+
+if strcmp(style,'satellite')||strcmp(style,'blip')
     fprintf(file,'\n\t\t\t<altitudeMode>absolute</altitudeMode>');
 end
 
