@@ -12,10 +12,18 @@ while or(size(eph,1)<12,readMessages<500)
         payloadMSB=dec2bin(data(6),8);
         payloadLength=bin2dec(cat(2,payloadMSB,payloadLSB));
         if payloadLength==104
-            SVcount=SVcount+1;
             SVN_bin=cat(2,dec2bin(payload(4,1),8),dec2bin(payload(3,1),8),...
                 dec2bin(payload(2,1),8),dec2bin(payload(1,1),8));
             SVN=bin2dec(SVN_bin);
+            
+            if ismember(SVN,eph(:,1));
+                data=data(9+data(5)+data(6)*256:end);
+                readMessages=readMessages+1;
+                clearvars -except data SVcount readMessages eph
+                continue
+            end
+            
+            SVcount=SVcount+1; 
             eph(SVcount,1)=SVN;
             
 %             how_bin=cat(2,dec2bin(payload(8,1),8),dec2bin(payload(7,1),8),...
