@@ -49,7 +49,6 @@ for n=1:nsat
     kml_sat_matrix(n,1)=satList(n,1);
     [kml_sat_matrix(n,2),kml_sat_matrix(n,3),kml_sat_matrix(n,4)]=...
         xyz2llh(sats_XYZ(satList(n,2),2),sats_XYZ(satList(n,2),3),sats_XYZ(satList(n,2),4));
-    name=sprintf('SVN#%d',kml_sat_matrix(n,1));
     description=sprintf('Azimuth: %3.4fº\nElevation: %2.4fº\n',...
         satList(n,3),satList(n,4));
     coordinates=[kml_sat_matrix(n,2),kml_sat_matrix(n,3),kml_sat_matrix(n,4)];
