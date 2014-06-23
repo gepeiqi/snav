@@ -41,6 +41,8 @@ filename=sprintf('%2.4f_%3.4f_%d_%ddeg',lat,lon,uint32(tst),mask);
 file=kml_open(filename);
 kml_addGroundStyle(file);
 kml_addSatelliteStyles(file);
+kml_addBlipStyle(file);
+kml_addPathStyles(file);
 kml_addPlacemark(file,'Ground Station','',[lat,lon,h],'ground');
 
 for n=1:nsat
@@ -48,11 +50,11 @@ for n=1:nsat
     [kml_sat_matrix(n,2),kml_sat_matrix(n,3),kml_sat_matrix(n,4)]=...
         xyz2llh(sats_XYZ(satList(n,2),2),sats_XYZ(satList(n,2),3),sats_XYZ(satList(n,2),4));
     name=sprintf('SVN#%d',kml_sat_matrix(n,1));
-    description=sprintf('Latitude: %2.4f\nLongitude: %3.4f\nAzimuth: %3.4f\nElevation: %2.4f\n',...
-        kml_sat_matrix(n,2),kml_sat_matrix(n,3),satList(n,3),satList(n,4));
+    description=sprintf('Azimuth: %3.4fº\nElevation: %2.4fº\n',...
+        satList(n,3),satList(n,4));
     coordinates=[kml_sat_matrix(n,2),kml_sat_matrix(n,3),kml_sat_matrix(n,4)];
-    kml_addPlacemark(file,name,description,coordinates,'satellite');
-    kml_addPlacemark(file,'','',coordinates,'shadow')
+    kml_placeSatellite(file,eph(satList(n,2),:),tst,description);
+    kml_drawPath(file,[lat lon h; coordinates],'green');
 end
 
 kml_close(file);
