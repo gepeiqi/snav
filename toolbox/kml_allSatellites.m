@@ -14,8 +14,8 @@ filename=sprintf('%d',uint32(tst));
 
 file=kml_open(filename);
 kml_addSatelliteStyles(file);
-
-
+kml_addBlipStyle(file);
+kml_addPathStyles(file);
 
 for sat=1:size(eph,1);
     kml_placeSatellite(file,eph(sat,:),tst);
